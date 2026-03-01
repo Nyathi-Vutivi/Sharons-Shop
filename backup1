@@ -533,7 +533,7 @@
       <div class="picture-upload">
         <label for="productImageUpload" class="file-label"><i class="fas fa-cloud-upload-alt"></i> Choose image</label>
         <input type="file" id="productImageUpload" class="upload-input" accept="image/*">
-        <button class="upload-btn" id="uploadProductBtn"><i class="fas fa-plus-circle"></i> Add with picture</button>
+        <button class="upload-btn" id="uploadProductBtn"><i class="fas fa-plus-circle"></i> Add</button>
         <span id="uploadStatus"><i class="fa-regular fa-eye"></i> no file</span>
       </div>
     </div>
