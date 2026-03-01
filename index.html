@@ -156,7 +156,7 @@
     }
     .search-wrapper button:hover { background: #cd5722; transform: scale(0.94);}
 
-    /* ----- category chips (now fully interactive & take to sections) ----- */
+    /* ----- category chips ----- */
     .menu-panel {
       background: #ffd5b3;
       border-radius: 3rem;
@@ -278,7 +278,7 @@
       align-items: center;
       border: 2px solid #feba8b;
     }
-    .product-card[data-category] { display: flex; } /* visible by default, filter via JS */
+    .product-card[data-category] { display: flex; }
     .product-card.hidden-cat { display: none; }
 
     .product-image {
@@ -313,16 +313,84 @@
     }
     .add-btn:hover { background: #bc4718; gap: 0.9rem; }
 
-    /* cart preview */
+    /* ----- CART PREVIEW with TOTAL & CHECKOUT ----- */
     .cart-preview {
-      background: #fed7ba; border-radius: 2rem; padding: 1.2rem 2rem;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
-      border: 2px solid #fb9f6b; margin-top: 1.5rem;
+      background: #fed7ba;
+      border-radius: 2rem;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      border: 2px solid #fb9f6b;
+      margin-top: 1.5rem;
     }
-    .cart-info { display: flex; align-items: center; gap: 1rem; font-weight: 600; color: #3f1f0a; }
-    .cart-info i { font-size: 2rem; color: #b24918; background: #fff6e0; padding: 0.5rem; border-radius: 50%; }
-    .cart-items-list { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .sample-item { background: #fae1c9; border-radius: 3rem; padding: 0.3rem 1rem; border: 2px solid #fca56e; }
+    .cart-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 600;
+      color: #3f1f0a;
+    }
+    .cart-info i {
+      font-size: 2rem;
+      color: #b24918;
+      background: #fff6e0;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+    .cart-details {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .cart-total {
+      background: #a5542e;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 10px #a9471b;
+    }
+    .cart-total::before { content: 'R'; margin-right: 0.2rem; }
+    .checkout-btn {
+      background: #328f5e;
+      border: none;
+      color: white;
+      padding: 0.7rem 2rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      cursor: pointer;
+      transition: 0.15s;
+      box-shadow: 0 6px 14px #1d6b42;
+      border: 2px solid #8fddb0;
+    }
+    .checkout-btn:hover {
+      background: #1f7047;
+      transform: scale(1.02);
+      gap: 1rem;
+    }
+    .checkout-btn:active { transform: scale(0.96); }
+    .cart-items-list {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .sample-item {
+      background: #fae1c9;
+      border-radius: 3rem;
+      padding: 0.3rem 1rem;
+      border: 2px solid #fca56e;
+      font-size: 0.9rem;
+    }
 
     .feedback-toast {
       position: fixed; bottom: 25px; right: 25px; background: #29180d; color: #ffdabb;
@@ -335,7 +403,7 @@
 <div class="shopping-system">
   <div class="system-title"><i class="fas fa-bag-shopping"></i><span>Sharon’s online shopping system</span></div>
 
-  <!-- icon nav (all interactive) -->
+  <!-- icon nav -->
   <div class="icon-nav">
     <div class="nav-items">
       <button class="icon-btn" data-label="Home" id="homeBtn"><i class="fas fa-home"></i></button>
@@ -352,7 +420,7 @@
     </div>
   </div>
 
-  <!-- category chips (now sections: click filters) -->
+  <!-- category chips -->
   <div class="menu-panel">
     <span><i class="fas fa-compass"></i> shop by section</span>
     <div class="category-chips" id="categoryChips">
@@ -364,7 +432,7 @@
     </div>
   </div>
 
-  <!-- ADD ITEM with PICTURE & PRICE (NEW: include price field) -->
+  <!-- add item panel -->
   <div class="add-with-picture">
     <span><i class="fas fa-image"></i> Add custom item</span>
     <div class="picture-upload">
@@ -379,66 +447,75 @@
     </div>
   </div>
 
-  <!-- PRODUCT GRID with internet images & categories -->
+  <!-- PRODUCT GRID -->
   <div class="product-grid" id="productGrid">
     <!-- fashion -->
-    <div class="product-card" data-category="fashion" data-product-name="Linen blouse">
+    <div class="product-card" data-category="fashion" data-product-name="Linen blouse" data-price="399.90">
       <div class="product-image"><img src="https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=200&h=200&fit=crop&auto=format" alt="blouse" loading="lazy"></div>
       <div class="product-title">Linen blouse</div>
       <div class="product-price">399.90</div>
-      <button class="add-btn" data-product="Linen blouse"><i class="fas fa-plus-circle"></i> Add</button>
+      <button class="add-btn" data-product="Linen blouse" data-price="399.90"><i class="fas fa-plus-circle"></i> Add</button>
     </div>
-    <div class="product-card" data-category="fashion" data-product-name="Denim jeans">
+    <div class="product-card" data-category="fashion" data-product-name="Denim jeans" data-price="799.00">
       <div class="product-image"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=200&h=200&fit=crop&auto=format" alt="jeans" loading="lazy"></div>
       <div class="product-title">Denim jeans</div>
       <div class="product-price">799.00</div>
-      <button class="add-btn" data-product="Denim jeans"><i class="fas fa-plus-circle"></i> Add</button>
+      <button class="add-btn" data-product="Denim jeans" data-price="799.00"><i class="fas fa-plus-circle"></i> Add</button>
     </div>
     <!-- electronics -->
-    <div class="product-card" data-category="electronics" data-product-name="Headphones">
+    <div class="product-card" data-category="electronics" data-product-name="Headphones" data-price="899.00">
       <div class="product-image"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop&auto=format" alt="headphones" loading="lazy"></div>
       <div class="product-title">Headphones</div>
       <div class="product-price">899.00</div>
-      <button class="add-btn" data-product="Headphones"><i class="fas fa-plus-circle"></i> Add</button>
+      <button class="add-btn" data-product="Headphones" data-price="899.00"><i class="fas fa-plus-circle"></i> Add</button>
     </div>
-    <div class="product-card" data-category="electronics" data-product-name="Smart watch">
+    <div class="product-card" data-category="electronics" data-product-name="Smart watch" data-price="1299.00">
       <div class="product-image"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&h=200&fit=crop&auto=format" alt="watch" loading="lazy"></div>
       <div class="product-title">Smart watch</div>
       <div class="product-price">1299.00</div>
-      <button class="add-btn" data-product="Smart watch"><i class="fas fa-plus-circle"></i> Add</button>
+      <button class="add-btn" data-product="Smart watch" data-price="1299.00"><i class="fas fa-plus-circle"></i> Add</button>
     </div>
     <!-- home -->
-    <div class="product-card" data-category="home" data-product-name="Ceramic mug">
+    <div class="product-card" data-category="home" data-product-name="Ceramic mug" data-price="145.50">
       <div class="product-image"><img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=200&h=200&fit=crop&auto=format" alt="mug" loading="lazy"></div>
       <div class="product-title">Ceramic mug</div>
       <div class="product-price">145.50</div>
-      <button class="add-btn" data-product="Ceramic mug"><i class="fas fa-plus-circle"></i> Add</button>
+      <button class="add-btn" data-product="Ceramic mug" data-price="145.50"><i class="fas fa-plus-circle"></i> Add</button>
     </div>
-    <div class="product-card" data-category="home" data-product-name="Cushion cover">
+    <div class="product-card" data-category="home" data-product-name="Cushion cover" data-price="249.99">
       <div class="product-image"><img src="https://images.unsplash.com/photo-1584102275572-6f2b28c6ee22?w=200&h=200&fit=crop&auto=format" alt="cushion" loading="lazy"></div>
       <div class="product-title">Cushion cover</div>
       <div class="product-price">249.99</div>
-      <button class="add-btn" data-product="Cushion cover"><i class="fas fa-plus-circle"></i> Add</button>
+      <button class="add-btn" data-product="Cushion cover" data-price="249.99"><i class="fas fa-plus-circle"></i> Add</button>
     </div>
     <!-- sports -->
-    <div class="product-card" data-category="sports" data-product-name="Yoga mat">
+    <div class="product-card" data-category="sports" data-product-name="Yoga mat" data-price="349.00">
       <div class="product-image"><img src="https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=200&h=200&fit=crop&auto=format" alt="yoga mat" loading="lazy"></div>
       <div class="product-title">Yoga mat</div>
       <div class="product-price">349.00</div>
-      <button class="add-btn" data-product="Yoga mat"><i class="fas fa-plus-circle"></i> Add</button>
+      <button class="add-btn" data-product="Yoga mat" data-price="349.00"><i class="fas fa-plus-circle"></i> Add</button>
     </div>
-    <div class="product-card" data-category="sports" data-product-name="Dumbbell set">
+    <div class="product-card" data-category="sports" data-product-name="Dumbbell set" data-price="599.00">
       <div class="product-image"><img src="https://images.unsplash.com/photo-1586401100295-7a8096fd231a?w=200&h=200&fit=crop&auto=format" alt="dumbbell" loading="lazy"></div>
       <div class="product-title">Dumbbell set</div>
       <div class="product-price">599.00</div>
-      <button class="add-btn" data-product="Dumbbell set"><i class="fas fa-plus-circle"></i> Add</button>
+      <button class="add-btn" data-product="Dumbbell set" data-price="599.00"><i class="fas fa-plus-circle"></i> Add</button>
     </div>
   </div>
 
-  <!-- cart preview -->
+  <!-- CART PREVIEW with TOTAL and CHECKOUT button -->
   <div class="cart-preview">
-    <div class="cart-info"><i class="fas fa-shopping-bag"></i><span>Your cart · <span id="cartCount">0</span> items</span></div>
-    <div class="cart-items-list" id="cartItemsList"><span class="sample-item"><i class="fa-regular fa-circle"></i> empty</span></div>
+    <div class="cart-info">
+      <i class="fas fa-shopping-bag"></i>
+      <span>Your cart · <span id="cartCount">0</span> items</span>
+    </div>
+    <div class="cart-details">
+      <div class="cart-total" id="cartTotal">0.00</div>
+      <button class="checkout-btn" id="checkoutBtn"><i class="fas fa-credit-card"></i> Checkout</button>
+    </div>
+    <div class="cart-items-list" id="cartItemsList">
+      <span class="sample-item"><i class="fa-regular fa-circle"></i> empty</span>
+    </div>
   </div>
   <div class="feedback-toast" id="toastMsg">✨ ready</div>
 </div>
@@ -448,20 +525,42 @@
   // ---- data & helpers ----
   const toast = document.getElementById('toastMsg');
   const cartCountSpan = document.getElementById('cartCount');
+  const cartTotalSpan = document.getElementById('cartTotal');
   const cartItemsDiv = document.getElementById('cartItemsList');
-  let cartItems = [];
+  
+  // cart now stores objects { name, price }
+  let cart = [];
 
-  function showToast(text) { toast.style.opacity = '1'; toast.innerText = text; setTimeout(() => toast.style.opacity = '0', 1800); }
+  function showToast(text) { 
+    toast.style.opacity = '1'; 
+    toast.innerText = text; 
+    setTimeout(() => toast.style.opacity = '0', 1800); 
+  }
+  
   function updateCartDisplay() {
-    cartCountSpan.innerText = cartItems.length;
-    if (cartItems.length === 0) { cartItemsDiv.innerHTML = `<span class="sample-item"><i class="fa-regular fa-circle"></i> empty</span>`; return; }
+    // update count
+    cartCountSpan.innerText = cart.length;
+    
+    // calculate total
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    cartTotalSpan.innerText = total.toFixed(2);
+    
+    // update items preview (last 3)
+    if (cart.length === 0) { 
+      cartItemsDiv.innerHTML = `<span class="sample-item"><i class="fa-regular fa-circle"></i> empty</span>`; 
+      return; 
+    }
     let html = '';
-    cartItems.slice(-3).forEach(item => html += `<span class="sample-item"><i class="fas fa-check-circle" style="color:#c44f1c;"></i> ${item}</span>`);
-    if (cartItems.length > 3) html += `<span class="sample-item"><i class="fas fa-ellipsis-h"></i> +${cartItems.length-3}</span>`;
+    cart.slice(-3).forEach(item => {
+      html += `<span class="sample-item"><i class="fas fa-check-circle" style="color:#c44f1c;"></i> ${item.name}</span>`;
+    });
+    if (cart.length > 3) {
+      html += `<span class="sample-item"><i class="fas fa-ellipsis-h"></i> +${cart.length-3} more</span>`;
+    }
     cartItemsDiv.innerHTML = html;
   }
 
-  // ---- SECTION FILTER (fully interactive) ----
+  // ---- SECTION FILTER ----
   const chips = document.querySelectorAll('.chip');
   const products = document.querySelectorAll('.product-card');
   function filterCategory(cat) {
@@ -475,22 +574,32 @@
     });
   }
   chips.forEach(chip => {
-    chip.addEventListener('click', (e) => {
+    chip.addEventListener('click', () => {
       const cat = chip.dataset.cat;
       filterCategory(cat);
       showToast(`📌 showing ${cat === 'all' ? 'all items' : cat}`);
     });
   });
 
-  // ---- all icon buttons interactive ----
+  // ---- icon buttons ----
   document.getElementById('homeBtn').addEventListener('click', ()=> { filterCategory('all'); showToast('🏠 home (all items)'); });
   document.getElementById('searchIconBtn').addEventListener('click', ()=> document.getElementById('searchInput').focus());
   document.getElementById('addIconBtn').addEventListener('click', ()=> {
-    // quick add random from existing products
-    const randomProd = ['Linen blouse','Headphones','Yoga mat'][Math.floor(Math.random()*3)];
-    cartItems.push(randomProd); updateCartDisplay(); showToast(`➕ ${randomProd} added`);
+    // quick add random product with price
+    const randomItems = [
+      { name: 'Linen blouse', price: 399.90 },
+      { name: 'Headphones', price: 899.00 },
+      { name: 'Yoga mat', price: 349.00 }
+    ];
+    const pick = randomItems[Math.floor(Math.random() * randomItems.length)];
+    cart.push(pick);
+    updateCartDisplay();
+    showToast(`➕ ${pick.name} added`);
   });
-  document.getElementById('cartIconBtn').addEventListener('click', ()=> showToast(`🛒 ${cartItems.length} item(s)`));
+  document.getElementById('cartIconBtn').addEventListener('click', ()=> {
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    showToast(`🛒 ${cart.length} item(s) · total R${total.toFixed(2)}`);
+  });
   const menuBtn = document.getElementById('menuIconBtn');
   const menuPanel = document.querySelector('.menu-panel');
   menuBtn.addEventListener('click', ()=> {
@@ -505,10 +614,11 @@
     if (!q) { showToast('🔍 type something'); return; }
     let found = false;
     products.forEach(p => {
-      if (p.dataset.productName && p.dataset.productName.toLowerCase().includes(q)) {
+      let name = p.dataset.productName ? p.dataset.productName.toLowerCase() : '';
+      if (name.includes(q)) {
         p.classList.remove('hidden-cat');
         found = true;
-      } else if (!p.dataset.productName?.toLowerCase().includes(q) && !q.includes('all')) {
+      } else {
         p.classList.add('hidden-cat');
       }
     });
@@ -516,18 +626,19 @@
     else showToast(`🔍 showing "${q}"`);
   });
 
-  // ---- add to cart from product buttons ----
+  // ---- add to cart from product buttons (with price) ----
   document.querySelectorAll('.add-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const product = btn.getAttribute('data-product') || 'item';
-      cartItems.push(product);
+      const productName = btn.getAttribute('data-product') || 'item';
+      const price = parseFloat(btn.getAttribute('data-price')) || 0;
+      cart.push({ name: productName, price: price });
       updateCartDisplay();
-      showToast(`➕ ${product} added`);
+      showToast(`➕ ${productName} added`);
     });
   });
 
-  // ---- ADD ITEM with PICTURE & PRICE (fully functional) ----
+  // ---- ADD ITEM with PICTURE & PRICE (store price in cart) ----
   const fileInput = document.getElementById('productImageUpload');
   const uploadBtn = document.getElementById('uploadProductBtn');
   const uploadStatus = document.getElementById('uploadStatus');
@@ -539,29 +650,29 @@
     const price = parseFloat(newItemPrice.value) || 129.99;
     const file = fileInput.files[0];
 
-    // add to cart immediately
-    cartItems.push(`${name} (R${price.toFixed(2)})`);
+    // add to cart with price
+    cart.push({ name: name, price: price });
     updateCartDisplay();
 
     if (file) {
       const reader = new FileReader();
       reader.onload = function(ev) {
-        // create a new product card dynamically (adds to grid, with category 'general')
         const grid = document.getElementById('productGrid');
         const newCard = document.createElement('div');
         newCard.className = 'product-card';
         newCard.dataset.category = 'all';
         newCard.dataset.productName = name;
+        newCard.dataset.price = price;
         newCard.innerHTML = `
           <div class="product-image"><img src="${ev.target.result}" alt="${name}" loading="lazy"></div>
           <div class="product-title">${name}</div>
           <div class="product-price">${price.toFixed(2)}</div>
-          <button class="add-btn" data-product="${name} (R${price.toFixed(2)})"><i class="fas fa-plus-circle"></i> Add</button>
+          <button class="add-btn" data-product="${name}" data-price="${price}"><i class="fas fa-plus-circle"></i> Add</button>
         `;
         // attach add event
         newCard.querySelector('.add-btn').addEventListener('click', (e) => {
           e.stopPropagation();
-          cartItems.push(name);
+          cart.push({ name: name, price: price });
           updateCartDisplay();
           showToast(`➕ ${name} added`);
         });
@@ -572,21 +683,22 @@
       fileInput.value = '';
       uploadStatus.innerHTML = `<i class="fa-regular fa-eye"></i> no file`;
     } else {
-      // just add text item (no pic) – also create a card placeholder? we'll add a generic one
+      // no picture: add generic card
       const grid = document.getElementById('productGrid');
       const newCard = document.createElement('div');
       newCard.className = 'product-card';
       newCard.dataset.category = 'all';
       newCard.dataset.productName = name;
+      newCard.dataset.price = price;
       newCard.innerHTML = `
         <div class="product-image"><i class="fas fa-box" style="font-size:3rem; color:#853f1a;"></i></div>
         <div class="product-title">${name}</div>
         <div class="product-price">${price.toFixed(2)}</div>
-        <button class="add-btn" data-product="${name} (R${price.toFixed(2)})"><i class="fas fa-plus-circle"></i> Add</button>
+        <button class="add-btn" data-product="${name}" data-price="${price}"><i class="fas fa-plus-circle"></i> Add</button>
       `;
       newCard.querySelector('.add-btn').addEventListener('click', (e) => {
         e.stopPropagation();
-        cartItems.push(name);
+        cart.push({ name: name, price: price });
         updateCartDisplay();
         showToast(`➕ ${name} added`);
       });
@@ -594,20 +706,33 @@
       showToast(`📦 "${name}" added (no picture)`);
     }
     // reset fields
-    newItemName.value = ''; newItemPrice.value = '129.99';
+    newItemName.value = '';
+    newItemPrice.value = '129.99';
   });
 
-  // file input status
   fileInput.addEventListener('change', function() {
     if (this.files && this.files[0]) uploadStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${this.files[0].name.substring(0,15)}...`;
     else uploadStatus.innerHTML = `<i class="fa-regular fa-eye"></i> no file`;
   });
 
-  // initial filter all
+  // ---- CHECKOUT BUTTON ----
+  document.getElementById('checkoutBtn').addEventListener('click', function() {
+    if (cart.length === 0) {
+      showToast('🛒 Cart is empty — nothing to checkout');
+      return;
+    }
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    showToast(`✅ Checkout complete! Total R${total.toFixed(2)}. Thank you, Sharon!`);
+    // optionally clear cart after checkout? we'll keep it for demo, but could clear:
+    // cart = [];
+    // updateCartDisplay();
+  });
+
+  // initial filter & cart
   filterCategory('all');
   updateCartDisplay();
 })();
 </script>
-<!-- no footer attribution – clean as requested -->
+<!-- no footer attribution -->
 </body>
 </html>
