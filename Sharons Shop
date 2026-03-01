@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sharon · online shopping</title>
+  <!-- Font Awesome 6 (free) for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font: Inter (clean) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      /* vibrant gradient: coral to warm peach to soft lavender */
+      background: linear-gradient(145deg, #ffd0b0 0%, #ffe2c0 40%, #f2d9ff 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.2rem;
+    }
+
+    /* main card – fresh, bright, lively */
+    .shopping-system {
+      max-width: 1400px;
+      width: 100%;
+      background: rgba(255, 251, 245, 0.8);
+      backdrop-filter: blur(4px);
+      border-radius: 2.5rem;
+      box-shadow: 0 30px 45px -15px #b76e4b, 0 10px 25px -10px #aa7fb0;
+      padding: 2rem 2.2rem 2.5rem 2.2rem;
+      border: 2px solid rgba(255, 242, 201, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    .shopping-system:hover {
+      box-shadow: 0 35px 55px -12px #b15042, 0 15px 30px -8px #a16da3;
+    }
+
+    /* ----- TITLE (juicy gradient) ----- */
+    .system-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.8rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 4px solid #fcb38b;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .system-title i {
+      color: #c44f1c;
+      font-size: 2.2rem;
+      background: #ffe0b5;
+      padding: 0.6rem;
+      border-radius: 50%;
+      box-shadow: 0 8px 12px -6px #ea9769;
+    }
+    .system-title span {
+      background: linear-gradient(130deg, #c0442b, #cf6f97, #7d4b9c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ----- navigation bar (fresh & vibrant) ----- */
+    .icon-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffe9d7;
+      padding: 0.9rem 1.8rem;
+      border-radius: 4rem;
+      margin-bottom: 2.4rem;
+      box-shadow: 0 12px 22px -10px #f09d78, 0 2px 0 #fff7e6 inset;
+      border: 1px solid #fecab0;
+    }
+
+    .nav-items {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.6rem;
+      color: #732f12;
+      width: 3.3rem;
+      height: 3.3rem;
+      border-radius: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      background: rgba(255, 225, 200, 0.8);
+      backdrop-filter: blur(2px);
+      border: 1px solid #ffb082;
+      position: relative;
+    }
+
+    .icon-btn i {
+      filter: drop-shadow(0 2px 3px rgba(199, 78, 0, 0.3));
+    }
+
+    /* tooltip – reduces memory load (show name on hover) */
+    .icon-btn::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: -2rem;
+      left: 50%;
+      transform: translateX(-50%) scale(0.85);
+      background: #1e0f08;
+      color: #ffe3c0;
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.25rem 0.9rem;
+      border-radius: 2rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 10px #bb551c;
+    }
+
+    .icon-btn:hover::after {
+      opacity: 1;
+      bottom: -2.4rem;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .icon-btn:hover {
+      background: #ffb48a;
+      color: #2e150b;
+      transform: translateY(-4px) scale(1.02);
+      border-color: #f57c40;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.92);
+      background: #fb9367;
+    }
+
+    .profile-icon {
+      background: #f9cfaa;
+      color: #441e0b;
+      border: 3px solid #fdb28b;
+    }
+
+    /* search area */
+    .search-wrapper {
+      display: flex;
+      align-items: center;
+      background: #ffffffd9;
+      border-radius: 3rem;
+      padding: 0.1rem 0.1rem 0.1rem 1.2rem;
+      border: 2px solid #ffb185;
+    }
+    .search-wrapper i {
+      color: #cd6737;
+      font-size: 1rem;
+      margin-right: 0.3rem;
+    }
+    .search-wrapper input {
+      border: none;
+      background: transparent;
+      padding: 0.6rem 0.2rem 0.6rem 0;
+      font-size: 0.95rem;
+      width: 170px;
+      outline: none;
+      color: #351c10;
+    }
+    .search-wrapper input::placeholder {
+      color: #ba7a58;
+      font-style: italic;
+    }
+    .search-wrapper button {
+      background: #e57646;
+      border: none;
+      color: white;
+      border-radius: 3rem;
+      width: 2.7rem;
+      height: 2.7rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.15s;
+      box-shadow: 0 4px 10px #d86a30;
+    }
+    .search-wrapper button:hover {
+      background: #cd5722;
+      transform: scale(0.94);
+    }
+
+    /* ----- product grid (vibrant cards) ----- */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 2rem 1.8rem;
+      margin: 2.5rem 0 2rem;
+    }
+
+    .product-card {
+      background: #fffbee;
+      border-radius: 2rem 2rem 2rem 2rem;
+      padding: 1.5rem 1rem 1.3rem;
+      box-shadow: 0 20px 25px -12px #c26e46, 0 0 0 2px #ffe3c4 inset;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border: 2px solid #feba8b;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 28px 32px -10px #be4f29, 0 0 0 3px #fdc39e inset;
+      background: #fffcf0;
+    }
+
+    /* product image area – now supports user-added picture */
+    .product-image {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #ffdac2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 3rem;
+      color: #853f1a;
+      border: 4px solid #fca975;
+      box-shadow: 0 10px 18px #fba269;
+      overflow: hidden;  /* for future uploaded image */
+      transition: 0.2s;
+      object-fit: cover;
+    }
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .product-card:hover .product-image {
+      transform: rotate(2deg) scale(1.02);
+      border-color: #ff8f56;
+    }
+
+    .product-title {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #3a1f0e;
+      margin-bottom: 0.3rem;
+    }
+    .product-price {
+      font-weight: 600;
+      color: #c44f1c;
+      margin-bottom: 1.1rem;
+      font-size: 1.4rem;
+      background: #ffeee1;
+      padding: 0.2rem 1rem;
+      border-radius: 4rem;
+    }
+    .product-price::before {
+      content: 'R';
+      font-weight: 600;
+      margin-right: 0.15rem;
+    }
+
+    /* add to cart button */
+    .add-btn {
+      background: #d9602b;
+      border: none;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border-radius: 2.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      box-shadow: 0 8px 18px #c15320;
+      border: 1px solid #ffbf92;
+    }
+    .add-btn i {
+      font-size: 1.1rem;
+    }
+    .add-btn:hover {
+      background: #bc4718;
+      gap: 1rem;
+      padding-right: 1.9rem;
+      box-shadow: 0 12px 22px #bc4b19;
+    }
+    .add-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 5px 12px #9e3e13;
+    }
+
+    /* ----- picture upload row (NEW: add image with item) ----- */
+    .add-with-picture {
+      background: #ffc8aa;
+      border-radius: 2.5rem;
+      padding: 1.1rem 2rem;
+      margin: 1rem 0 2rem 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border: 2px solid #ffa066;
+      box-shadow: 0 10px 24px #ec9c6b;
+    }
+    .add-with-picture span {
+      font-weight: 600;
+      color: #421f0c;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #fff3e0;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4rem;
+    }
+    .picture-upload {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .file-label {
+      background: #a5542e;
+      color: white;
+      padding: 0.5rem 1.3rem;
+      border-radius: 3rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.1s;
+      border: 2px solid #facaad;
+      box-shadow: 0 3px 10px #ad4b21;
+    }
+    .file-label i {
+      margin-right: 0.5rem;
+    }
+    .file-label:hover {
+      background: #7e3b1d;
+    }
+    .upload-input {
+      display: none;
+    }
+    .upload-btn {
+      background: #f07b48;
+      border: none;
+      color: white;
+      padding: 0.6rem 1.7rem;
+      border-radius: 3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      box-shadow: 0 6px 16px #c15223;
+      border: 1px solid #feb27b;
+    }
+    .upload-btn:hover {
+      background: #cf5d2c;
+    }
+    #uploadStatus {
+      font-weight: 500;
+      color: #432011;
+      background: #fce3cf;
+      padding: 0.3rem 1.2rem;
+      border-radius: 4rem;
+    }
+
+    /* cart preview (vibrant) */
+    .cart-preview {
+      background: #fed7ba;
+      border-radius: 2rem;
+      padding: 1.3rem 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border: 2px solid #fb9f6b;
+      box-shadow: 0 8px 22px #dc7f54;
+      margin-top: 1.8rem;
+    }
+    .cart-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 600;
+      color: #3f1f0a;
+    }
+    .cart-info i {
+      font-size: 2rem;
+      color: #b24918;
+      background: #fff6e0;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+    .cart-items-list {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .sample-item {
+      background: #fae1c9;
+      border-radius: 3rem;
+      padding: 0.3rem 1rem 0.3rem 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.95rem;
+      color: #361d0e;
+      border: 2px solid #fca56e;
+    }
+
+    /* menu panel (vibrant) */
+    .menu-panel {
+      background: #ffd5b3;
+      border-radius: 3rem;
+      padding: 0.8rem 2rem;
+      margin: 1rem 0 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border: 2px solid #ff9762;
+      box-shadow: 0 12px 22px -8px #d08257;
+    }
+    .menu-panel span {
+      font-weight: 600;
+      color: #5d2d12;
+      background: #ffe3c9;
+      padding: 0.5rem 1.5rem;
+      border-radius: 3rem;
+    }
+    .chip {
+      background: #fffbf0;
+      border-radius: 2rem;
+      padding: 0.4rem 1.4rem;
+      font-size: 0.95rem;
+      border: 2px solid #fc9a64;
+      color: #2d160b;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+    .chip:hover {
+      background: #f2945e;
+      color: white;
+      border-color: #c45d28;
+    }
+
+    /* feedback toast */
+    .feedback-toast {
+      position: fixed;
+      bottom: 25px; right: 25px;
+      background: #29180d;
+      color: #ffdabb;
+      padding: 0.9rem 2.2rem;
+      border-radius: 3rem;
+      font-size: 1rem;
+      box-shadow: 0 10px 22px #9e4f28;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      z-index: 999;
+      border: 2px solid #ffae6a;
+    }
+    .attribution {
+      color: #411f0b;
+      margin-top: 2rem;
+      text-align: center;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="shopping-system">
+    <!-- title -->
+    <div class="system-title">
+      <i class="fas fa-bag-shopping"></i>
+      <span>Sharon’s online shopping system</span>
+    </div>
+
+    <!-- icon bar -->
+    <div class="icon-nav">
+      <div class="nav-items">
+        <button class="icon-btn" data-label="Home" id="homeBtn"><i class="fas fa-home"></i></button>
+        <button class="icon-btn" data-label="Search" id="searchIconBtn"><i class="fas fa-search"></i></button>
+        <button class="icon-btn" data-label="Add item" id="addIconBtn"><i class="fas fa-plus-circle"></i></button>
+        <button class="icon-btn" data-label="Cart" id="cartIconBtn"><i class="fas fa-shopping-cart"></i></button>
+        <button class="icon-btn" data-label="Menu" id="menuIconBtn"><i class="fas fa-bars"></i></button>
+        <button class="icon-btn profile-icon" data-label="Profile" id="profileBtn"><i class="fas fa-user-circle"></i></button>
+      </div>
+      <div class="search-wrapper">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search items..." id="searchInput">
+        <button id="searchGo"><i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- menu panel -->
+    <div class="menu-panel" id="menuPanel">
+      <span><i class="fas fa-compass"></i> quick menu</span>
+      <div class="category-chips" style="display:flex; gap:0.7rem; flex-wrap:wrap;">
+        <div class="chip"><i class="fas fa-tshirt"></i> Fashion</div>
+        <div class="chip"><i class="fas fa-laptop"></i> Electronics</div>
+        <div class="chip"><i class="fas fa-couch"></i> Home</div>
+        <div class="chip"><i class="fas fa-dumbbell"></i> Sports</div>
+      </div>
+    </div>
+
+    <!-- NEW: add item WITH picture row (compliant with request) -->
+    <div class="add-with-picture">
+      <span><i class="fas fa-image"></i> Add item + picture</span>
+      <div class="picture-upload">
+        <label for="productImageUpload" class="file-label"><i class="fas fa-cloud-upload-alt"></i> Choose image</label>
+        <input type="file" id="productImageUpload" class="upload-input" accept="image/*">
+        <button class="upload-btn" id="uploadProductBtn"><i class="fas fa-plus-circle"></i> Add with picture</button>
+        <span id="uploadStatus"><i class="fa-regular fa-eye"></i> no file</span>
+      </div>
+    </div>
+
+    <!-- product grid (prices in Rands) -->
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-image" id="prodImg1"><i class="fas fa-tshirt"></i></div>
+        <div class="product-title">Linen blouse</div>
+        <div class="product-price">399.90</div>
+        <button class="add-btn" data-product="Linen blouse"><i class="fas fa-plus-circle"></i> Add</button>
+      </div>
+      <div class="product-card">
+        <div class="product-image" id="prodImg2"><i class="fas fa-headphones"></i></div>
+        <div class="product-title">Noise-cancelling</div>
+        <div class="product-price">899.00</div>
+        <button class="add-btn" data-product="Headphones"><i class="fas fa-plus-circle"></i> Add</button>
+      </div>
+      <div class="product-card">
+        <div class="product-image" id="prodImg3"><i class="fas fa-mug-hot"></i></div>
+        <div class="product-title">Ceramic mug</div>
+        <div class="product-price">145.50</div>
+        <button class="add-btn" data-product="Ceramic mug"><i class="fas fa-plus-circle"></i> Add</button>
+      </div>
+      <div class="product-card">
+        <div class="product-image" id="prodImg4"><i class="fas fa-ring"></i></div>
+        <div class="product-title">Silver ring</div>
+        <div class="product-price">299.99</div>
+        <button class="add-btn" data-product="Silver ring"><i class="fas fa-plus-circle"></i> Add</button>
+      </div>
+    </div>
+
+    <!-- cart preview (memory helper) -->
+    <div class="cart-preview">
+      <div class="cart-info">
+        <i class="fas fa-shopping-bag"></i>
+        <span>Your cart · <span id="cartCount">0</span> items</span>
+      </div>
+      <div class="cart-items-list" id="cartItemsList">
+        <span class="sample-item"><i class="fa-regular fa-circle"></i> empty, add something</span>
+      </div>
+    </div>
+    <!-- toast -->
+    <div class="feedback-toast" id="toastMsg">✨ added to cart</div>
+  </div>
+
+  <script>
+    (function() {
+      const toast = document.getElementById('toastMsg');
+      const cartCountSpan = document.getElementById('cartCount');
+      const cartItemsDiv = document.getElementById('cartItemsList');
+      const menuPanel = document.getElementById('menuPanel');
+      
+      let cartItems = [];
+
+      // ----- update cart UI
+      function updateCartDisplay() {
+        cartCountSpan.innerText = cartItems.length;
+        if (cartItems.length === 0) {
+          cartItemsDiv.innerHTML = `<span class="sample-item"><i class="fa-regular fa-circle"></i> empty, add something</span>`;
+        } else {
+          let htmlStr = '';
+          const lastItems = cartItems.slice(-3);
+          lastItems.forEach(item => {
+            htmlStr += `<span class="sample-item"><i class="fas fa-check-circle" style="color:#c44f1c;"></i> ${item}</span>`;
+          });
+          if (cartItems.length > 3) {
+            htmlStr += `<span class="sample-item"><i class="fas fa-ellipsis-h"></i> +${cartItems.length-3} more</span>`;
+          }
+          cartItemsDiv.innerHTML = htmlStr;
+        }
+      }
+
+      function showToast(text) {
+        toast.style.opacity = '1';
+        toast.innerText = text || '✨ added';
+        setTimeout(() => { toast.style.opacity = '0'; }, 1800);
+      }
+
+      // ----- add to cart from product buttons
+      document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const product = btn.getAttribute('data-product') || 'item';
+          cartItems.push(product);
+          updateCartDisplay();
+          showToast(`➕ ${product} added (R)`);
+        });
+      });
+
+      // ----- ICON interactions
+      document.getElementById('homeBtn').addEventListener('click', () => showToast('🏠 home'));
+      document.getElementById('searchIconBtn').addEventListener('click', () => {
+        document.getElementById('searchInput').focus();
+        showToast('🔍 type to search');
+      });
+      document.getElementById('addIconBtn').addEventListener('click', () => {
+        // simulate quick add via icon
+        const demo = ['Silk scarf', 'Leather bag', 'Sunglasses'];
+        const r = demo[Math.floor(Math.random() * demo.length)];
+        cartItems.push(r);
+        updateCartDisplay();
+        showToast(`➕ ${r} added (via + icon)`);
+      });
+      document.getElementById('cartIconBtn').addEventListener('click', () => {
+        if (cartItems.length===0) showToast('🛒 cart empty');
+        else showToast(`🛒 ${cartItems.length} item(s) in cart`);
+      });
+      document.getElementById('menuIconBtn').addEventListener('click', () => {
+        if (menuPanel.style.display === 'none') {
+          menuPanel.style.display = 'flex';
+          showToast('📋 menu opened');
+        } else {
+          menuPanel.style.display = 'none';
+          showToast('📋 menu closed');
+        }
+      });
+      document.getElementById('profileBtn').addEventListener('click', () => showToast('👤 Sharon’s profile'));
+
+      // search
+      document.getElementById('searchGo').addEventListener('click', ()=> {
+        const q = document.getElementById('searchInput').value.trim();
+        showToast(q ? `Searching "${q}"...` : '🔎 type something');
+      });
+      document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') document.getElementById('searchGo').click();
+      });
+
+      // category chips
+      document.querySelectorAll('.chip').forEach(chip => {
+        chip.addEventListener('click', () => showToast(`📌 filter: ${chip.innerText}`));
+      });
+
+      // ---------- NEW: picture upload + add item with image ----------
+      const fileInput = document.getElementById('productImageUpload');
+      const uploadBtn = document.getElementById('uploadProductBtn');
+      const uploadStatus = document.getElementById('uploadStatus');
+      let selectedFile = null;
+
+      fileInput.addEventListener('change', function(e) {
+        if (this.files && this.files[0]) {
+          selectedFile = this.files[0];
+          uploadStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${selectedFile.name.substring(0,15)}...`;
+        } else {
+          selectedFile = null;
+          uploadStatus.innerHTML = `<i class="fa-regular fa-eye"></i> no file`;
+        }
+      });
+
+      uploadBtn.addEventListener('click', function() {
+        let productName = '';
+        // if a file is selected, we use a generic name or you could ask, but we'll use "Custom item"
+        if (selectedFile) {
+          productName = 'Custom 📸 ' + (selectedFile.name.split('.')[0].substring(0,12) || 'picture');
+        } else {
+          productName = 'Custom item (no pic)';
+        }
+
+        // add to cart
+        cartItems.push(productName);
+        updateCartDisplay();
+
+        // simulate updating first product image with the uploaded picture? To show picture integration, we update one card's image as example.
+        if (selectedFile) {
+          const reader = new FileReader();
+          reader.onload = function(ev) {
+            // update the first product image as a demo (since we have 4 cards)
+            const imgContainer = document.getElementById('prodImg1');
+            imgContainer.innerHTML = ''; // clear icon
+            const imgElement = document.createElement('img');
+            imgElement.src = ev.target.result;
+            imgElement.style.width = '100%'; imgElement.style.height = '100%'; imgElement.style.objectFit = 'cover';
+            imgContainer.appendChild(imgElement);
+            showToast(`🖼️ ${productName} added with picture`);
+          };
+          reader.readAsDataURL(selectedFile);
+          // reset file input
+          fileInput.value = '';
+          selectedFile = null;
+          uploadStatus.innerHTML = `<i class="fa-regular fa-eye"></i> no file`;
+        } else {
+          showToast(`➕ ${productName} added (no picture)`);
+        }
+      });
+
+      // initial update
+      updateCartDisplay();
+
+      // show menu by default
+      menuPanel.style.display = 'flex';
+    })();
+  </script>
+  <div class="attribution">
+    <i class="fa-regular fa-heart" style="color:#d9480f;"></i> Sharon’s – now with Rands & picture upload
+  </div>
+</body>
+</html>
